@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace UnityEngine.UI
 {
+    [System.Serializable]
     public class HexagonMetrics
     {
         public float    OuterRadius {
@@ -13,24 +14,28 @@ namespace UnityEngine.UI
                 m_innerRadius = m_outerRadius * 0.866025404f;
                 m_outerDiameter = 2f * m_outerRadius;
                 m_innerDiameter = 2f * m_innerRadius;
-            } }
-        private float   m_outerRadius;
+            }
+        }
+
+        [SerializeField] private float   m_outerRadius;
         public float    InnerRadius { get { return m_innerRadius; } }
-        private float   m_innerRadius;
+        [SerializeField] private float   m_innerRadius;
 
         public float    InnerDiameter { get { return m_innerDiameter; } }
-        private float   m_innerDiameter;
+        [SerializeField] private float   m_innerDiameter;
         public float    OuterDiameter { get { return m_outerDiameter; } }
-        private float   m_outerDiameter;
+        [SerializeField] private float   m_outerDiameter;
     }
     [System.Serializable]
     public class HexCoordinates
     {
         public Text label;
 
-        public int X { get; private set; }
+        [SerializeField] private int x;
+        public int X { get { return x; } private set { x = value; } }
 
-        public int Z { get; private set; }
+        [SerializeField] private int z;
+        public int Z { get { return z; } private set { z = value; } }
 
         public HexCoordinates(int x, int z)
         {
@@ -55,6 +60,7 @@ namespace UnityEngine.UI
 
 
 
+    [System.Serializable]
     [DisallowMultipleComponent]
     [ExecuteInEditMode]
     public class HexagonLayoutGroup : LayoutGroup
@@ -69,7 +75,7 @@ namespace UnityEngine.UI
         public float spacing { get { return m_Spacing; } set { SetProperty(ref m_Spacing, value); } }
   
         public List<HexCoordinates> ChildHexCoordinates { get { return m_childHexCoordinates; } }
-        private List<HexCoordinates> m_childHexCoordinates = new List<HexCoordinates>();
+        [HideInInspector] [SerializeField] private List<HexCoordinates> m_childHexCoordinates = new List<HexCoordinates>();
 
         public int cellCountX { get { return m_cellCountX; } }
         [HideInInspector] [SerializeField] private int m_cellCountX;
@@ -83,8 +89,8 @@ namespace UnityEngine.UI
         public int actualCellCountY { get { return m_actualCellCountY; } }
         [HideInInspector] [SerializeField] private int m_actualCellCountY;
 
-        private HexagonMetrics m_hexagonMetrics = new HexagonMetrics();
-        private HexagonMetrics m_hexagonMetricsWithSapcing = new HexagonMetrics();
+        [SerializeField]  private HexagonMetrics m_hexagonMetrics = new HexagonMetrics();
+        [SerializeField]  private HexagonMetrics m_hexagonMetricsWithSapcing = new HexagonMetrics();
 
 
 
